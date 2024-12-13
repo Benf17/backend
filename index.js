@@ -33,12 +33,14 @@ app.get('/products', async (req, res) => {
 app.post('/products', async (req, res) => {
   try {
     const { product_name, description, price, quantity } = req.body;
+    console.log({ product_name, description, price, quantity});
     const query = `
       INSERT INTO products (product_name, description, price, quantity) 
       VALUES ($1, $2, $3, $4) 
       RETURNING *;
     `;
     const { rows } = await pool.query(query, [product_name, description, price, quantity]);
+    console.log({rows});
     res.status(201).json({ message: 'Product added successfully', product: rows[0] });
   } catch (error) {
     res.status(500).json({ error: error.message });
