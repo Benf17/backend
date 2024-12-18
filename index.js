@@ -1,17 +1,19 @@
 const express = require("express");
 const cors = require("cors");
 const { Pool } = require("pg");
+require("dotenv").config();
 
 const app = express();
+const port = process.env.PORT || 4000;
 app.use(cors());
 app.use(express.json());
 
 const pool = new Pool({
-  user: "eric",
-  host: "localhost",
-  database: "wpgp2",
-  password: "PSQLPwd",
-  port: 5432,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
 });
 
 // 1. Login validation
@@ -202,6 +204,6 @@ app.post("/newOrder", async (req, res) => {
   }
 });
 
-app.listen(5001, () =>
-  console.log("Server is running on http://localhost:5001")
+app.listen(port, () =>
+  console.log(`Server is running on http://localhost:${port}`)
 );
