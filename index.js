@@ -9,7 +9,7 @@ app.use(express.json());
 const pool = new Pool({
   user: "eric",
   host: "localhost",
-  database: "wpgp",
+  database: "wpgp2",
   password: "PSQLPwd",
   port: 5432,
 });
@@ -160,7 +160,7 @@ app.get("/order/:orderId", async (req, res) => {
 });
 
 // create new order for the user
-app.post("/neworder", async (req, res) => {
+app.post("/newOrder", async (req, res) => {
   try {
     const { user_id, cart, order_date } = req.body;
     let totalPrice = 0;
